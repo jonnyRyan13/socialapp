@@ -13,6 +13,12 @@ exports.create = function(req, res) {
   })
 }
 
-exports.viewSingle = function (req, res) {
-    res.render('single-post')
+exports.viewSingle = async function (req, res) {
+    try {
+        let post = await Post.findSinglePostById(req.params.id)
+        res.render('single-post', {post: post})
+    } catch (err) {
+        res.send("404 template will go here!")
+
+    }
 }
