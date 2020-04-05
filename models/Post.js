@@ -1,5 +1,6 @@
 const postsCollection = require('../db').db().collection("posts")
 const ObjectID = require('mongodb').ObjectID
+const User = require('./User')
 
 let Post = function(data, userid) {
   this.data = data
@@ -59,6 +60,15 @@ Post.findSinglePostById = function (id) {
                author: {$arrayElemAt: ["$authorDocument", 0]} 
             }}
         ]).toArray()
+        // clean up author property in each post object
+        posts = posts.map(function (post) {
+            post.author = {
+                username: post.author.username,
+                avatar: new User(post.author, true).avatar
+            }
+            return post
+        })
+
         if (posts.length) {
             console.log(posts[0])
             resolve(posts[0])
