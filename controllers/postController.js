@@ -15,9 +15,21 @@ exports.create = function(req, res) {
 
 exports.viewSingle = async function (req, res) {
     try {
-        let post = await Post.findSinglePostById(req.params.id)
+        let post = await Post.findSinglePostById(req.params.id, req.visitorId)
         res.render('single-post', {post: post})
     } catch (err) {
         res.render('404')
+    }
+}
+
+exports.viewEditScreen = async function (req, res) {
+    try {
+      // ask post model for data
+      let post = await Post.findSinglePostById(req.params.id)
+      // render edit screen template
+      res.render("edit-post", {post: post})
+
+    } catch (err) {
+      res.render("404")
     }
 }
