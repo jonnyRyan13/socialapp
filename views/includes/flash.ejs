@@ -1,0 +1,13 @@
+<% errors.forEach(function(message) { %>
+    <div class="alert alert-danger text-center" role="alert">
+      <h4 class="alert-heading">Ope! Something isn't right here.</h4>
+      <%= message %>
+    </div>
+  <% }) %>
+
+  <% success.forEach(function(message) { %>
+    <div class="alert alert-success text-center" role="alert">
+      <h4 class="alert-heading">Victory!</h4>
+      <%= message %>
+    </div>
+  <% }) %>
