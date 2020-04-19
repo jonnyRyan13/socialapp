@@ -33,7 +33,6 @@ Follow.prototype.validate = async function (action) {
 			this.errors.push("You cannot stop following someone you do not already follow!")
 		}
 	}
-
 	// should not be able to follow yourself 
 	if(this.followedId.equals(this.authorId)) {
 		this.errors.push("You cannot follow yourself, silly! ")
