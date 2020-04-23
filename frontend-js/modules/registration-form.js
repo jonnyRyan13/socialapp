@@ -2,6 +2,7 @@ import axios from "axios";
 
 export default class RegistrationForm {
   constructor() {
+    this._csrf = document.querySelector('[name="_csrf"]').value;
     this.form = document.querySelector("#registration-form");
     this.allFields = document.querySelectorAll(
       "#registration-form .form-control"
@@ -18,9 +19,10 @@ export default class RegistrationForm {
     this.events();
   }
 
+		// this is a comment and I will write more code tomorrrow because I love progrmaming
+		// this is the most fun I have ever had typing on a keyboard
   // Events
-  events() {
-
+  events() {        
     this.form.addEventListener("submit", (e) => {
       e.preventDefault(); // do not let the form submit
       this.formSubmitHandler();
@@ -39,12 +41,12 @@ export default class RegistrationForm {
 		this.username.addEventListener("blur", () => {
       this.isDifferent(this.username, this.usernameHandler);
     });
-    this.email.addEventListener("blur", () => {
+    this.email.addEventListener("blur", () => {   
       this.isDifferent(this.email, this.emailHandler);
     });
     this.password.addEventListener("blur", () => {
       this.isDifferent(this.password, this.passwordHandler);
-    });
+    });                 
   }
 
   // Methods
@@ -117,7 +119,7 @@ export default class RegistrationForm {
     //check to see if the username exists if no other validation errors
     if (!this.username.errors) {
       axios
-        .post("/doesUsernameExist", { username: this.username.value })
+        .post("/doesUsernameExist", { username: this.username.value, _csrf: this._csrf })
         .then((response) => {
           // if this response is true, username already exists
           if (response.data) {
@@ -145,7 +147,7 @@ export default class RegistrationForm {
     }
     if (!this.email.errors) {
       axios
-        .post("/doesEmailExist", { email: this.email.value })
+        .post("/doesEmailExist", { email: this.email.value, _csrf: this._csrf })
         .then((response) => {
           // if this response is true, username already exists
           if (response.data) {

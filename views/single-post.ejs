@@ -20,6 +20,7 @@
         action="/post/<%= post._id %>/delete"
         method="POST"
       >
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
         <button
           class="delete-post-button text-danger"
           data-toggle="tooltip"
@@ -38,9 +39,11 @@
       ><img class="avatar-tiny" src="<%= post.author.avatar %>"
     /></a>
     Posted by
-    <a href="/profile/<%= post.author.username %>"><%= post.author.username %></a> |
-    <%= post.createdDate.getMonth() + 1 %>/<%= post.createdDate.getDate() %>/<%=
-    post.createdDate.getFullYear() %>
+    <a href="/profile/<%= post.author.username %>"
+      ><%= post.author.username %></a
+    >
+    | <%= post.createdDate.getMonth() + 1 %>/<%= post.createdDate.getDate()
+    %>/<%= post.createdDate.getFullYear() %>
   </p>
 
   <div class="body-content">
