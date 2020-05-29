@@ -7,6 +7,12 @@ const sanitizeHTML = require("sanitize-html");
 const csrf = require("csurf")	// Cross-Site Request Forgery Package
 const app = express(); // define app
 
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+// setting up api
+app.use('/api', require('./router-api'))
+
 let sessionOptions = session({
   secret: "JavaScript is awesome",
   store: new MongoStore({ client: require("./db") }),
@@ -41,9 +47,6 @@ app.use(function (req, res, next) {
 });
 
 const router = require("./router"); // router.js
-
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
 
 app.use(express.static("public"));
 app.set("views", "views");

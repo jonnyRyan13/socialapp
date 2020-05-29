@@ -4,6 +4,15 @@ exports.viewCreateScreen = function(req, res) {
   res.render('create-post')
 }
 
+exports.apiCreate = function(req, res) {
+  let post = new Post(req.body, req.apiUser._id)
+  post.create().then(function(newId) {
+    res.json("Congrats. New Post have been created!")
+  }).catch(function(errors) {
+    res.json(errors)
+  })
+}
+
 exports.create = function(req, res) {
   let post = new Post(req.body, req.session.user._id)
   post.create().then(function(newId) {
